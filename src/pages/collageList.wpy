@@ -1,0 +1,65 @@
+<template>
+  <goodsItem :categoryId.sync="categoryId"></goodsItem>
+</template>
+<script>
+import wepy from 'wepy'
+import goodsItem from '../components/goodsItem'
+import List from '../components/list' // aliasFields example
+
+export default class test extends wepy.page {
+  config = {
+    navigationBarTitleText: '正在加载',
+    usingComponents: {
+      "van-button": "../components/vant/button/index",
+      "van-card": "../components/vant/card/index",
+      "van-rate": "../components/vant/rate/index",
+      "van-tag": "../components/vant/tag/index"
+    },
+
+  }
+  components = {
+    goodsItem: goodsItem,
+  }
+
+
+
+  data = {
+    categoryId:""
+  }
+
+  computed = {
+    now() {
+      return +new Date()
+    }
+  }
+
+  methods = {
+
+  }
+
+  events = {
+    'index-emit': (...args) => {
+      let $event = args[args.length - 1]
+      console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+    }
+  }
+
+  onLoad(e) {
+   console.log(e);
+   this.categoryId=e.Id;
+   this.$apply()
+   wx.setNavigationBarTitle({
+    title: e.categoryName
+  })
+ }
+ onReachBottom(e){
+  console.log("ssssssss");
+  this.$invoke('goodsItem','addPageIndex')
+  this.$invoke('goodsItem','getCollageList')
+}
+
+}
+
+</script>
+<style lang="less">
+</style>

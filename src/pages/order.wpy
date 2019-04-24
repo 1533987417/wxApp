@@ -1,0 +1,147 @@
+<template>
+  <view style="background-color:#F7F7F7;height:100%">
+    <van-cell custom-class="class-contain" title-class="class-title" border="{{ false }}" title="课程内容"></van-cell>
+    <van-cell border="{{ false }}">
+      <view slot="title">
+        <image class="order-img" src="{{orderInfo.SmallImageUrl}}"></image>
+        <view class="order-info-title"> {{orderInfo.CollageTitle}}</view>
+        <view class="order-price" @tap="seerate"><span wx:if="{{orderInfo.CollagePrice!=orderInfo.PayAmount}}" style="text-decoration:line-through;color:#707070">￥{{orderInfo.CollagePrice}}</span>￥{{orderInfo.PayAmount/100}}</view>
+      </view>
+    </van-cell>
+    <view style="margin-top:20rpx;">
+      <van-cell value-class="price" title="商品金额" value="￥{{ orderInfo.PayAmount/100}}" border="{{ false }}" />
+    </view>
+    <view style="background-color:#F7F7F7;height:700rpx;"></view>
+    <van-submit-bar price="{{ orderInfo.PayAmount*1}}" button-text="提交订单" bind:submit="onClickButton" tip="{{ true }}">
+      <van-tag type="primary"></van-tag>
+      <view slot="tip">
+        课程使用创币购买
+      </view>
+    </van-submit-bar>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import goodsItem from '../components/goodsItem'
+import List from '../components/list' // aliasFields example
+import request from '../utils/request'
+import api from '../utils/api'
+import db from '../utils/db'
+
+
+
+
+export default class test extends wepy.page {
+  config = {
+    navigationBarTitleText: '提交订单',
+    usingComponents: {
+      "van-submit-bar": "../components/vant/submit-bar/index",
+      "van-panel": "../components/vant/panel/index",
+      "van-cell": "../components/vant/cell/index",
+      "van-cell-group": "../components/vant/cell-group/index",
+      "van-action-sheet": "../components/vant/action-sheet/index"
+    }
+  }
+  components = {}
+
+
+
+  data = {
+
+    orderInfo: {},
+  }
+
+  computed = {
+    now() {
+      return +new Date()
+    }
+  }
+
+  methods = {
+
+    onClickButton(e) {
+      var userinfo = this.$parent.globalData.userInfo;
+      var para = Object.assign({}, this.orderInfo)
+      para.UserId = userinfo.UserId;
+      para.OpenId = userinfo.OpenId;
+      para.CollageId = +para.CollageId
+      console.log(para)
+      if (para.ShareUserId === "undefined") {
+        para.ShareUserId = 0
+      }
+      request.httpPostJY(api.service.buyCollage, para, (isOk, data) => {
+
+        console.log(data)
+        if (data.IsSuccess) {
+          wx.showToast({
+            title: "购买成功",
+            success(e) {
+              setTimeout(() => {
+                wx.navigateBack();
+              }, 3000)
+
+            }
+          });
+
+        } else {
+          wx.showToast({ title: data.Message, icon: "none" })
+        }
+      })
+    }
+  }
+
+  events = {
+
+  }
+
+  onLoad(e) {
+
+    this.orderInfo = e;
+    this.$apply()
+
+  }
+}
+
+</script>
+<style lang="css">
+.class-contain {
+  margin-top: 20rpx;
+}
+
+.class-title {
+  font-weight: bold;
+  color: #707070
+}
+
+.order-img {
+  width: 280rpx;
+  height: 140rpx;
+  border-radius: 8rpx;
+}
+
+.order-info-title {
+  left: 320rpx;
+  position: absolute;
+  top: 20rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  margin-left: 10rpx;
+}
+
+.order-price {
+  color: #f44;
+  font-size: 90%;
+  left: 320rpx;
+  position: absolute;
+  top: 65rpx;
+  margin-left: 10rpx;
+
+}
+
+.price {
+  color: #f44;
+}
+
+</style>
