@@ -11,350 +11,308 @@
                 </van-field>
               </van-cell-group>
             </view>
-            <!-- <view class="show-no-ticket"> 
-                          <image src="../image/no-record.png" />
-                          <text>暂无记录</text>
-                      </view> -->
+            <view class="show-no-ticket" wx:if="{{ticketList.length==0}}"> 
+              <image src="../image/no-record.png" />
+              <text>暂无记录</text>
+            </view>
             <view class="show-all-ticket" wx:for={{ticketList}} wx:for-index="index" wx:for-item="item" wx:key="index">
               <view style="border-radius:10rpx">
                 <view class="up-ticket">
                   <view class="show-money">
-                    ￥<text>{{item.money}}</text>
+                    ￥<text>{{item.Amount/100}}</text>
                   </view>
                   <view class="show-ticket-info">
-                    <view class="ticket-title">{{item.title}}</view>
-                    <view class="ticket-sub-title">{{item.subtitle}}</view>
+                    <view class="ticket-title">箴创优惠券</view>
+                    <view class="ticket-sub-title">卡券号：{{item.CouponNo}}</view>
                   </view>
                 </view>
                 <view class="how-to-use">
                   <!-- <text data-index="{{index}}" wx:if={{!item.isShowRule}}  @tap="showTicketRule">使用说明</text> -->
-                  <!-- <van-icon wx:if={{!item.isShowRule}}
-                                    size="22rpx"
-                                    color="#999999"
-                                    name="arrow-down">
-                                  </van-icon> -->
-                  <!-- <view class="show-hide-text" wx:if={{item.isShowRule}}>
-                                    {{mock.rule}}
-                                    <view @tap="showTicketRule(item)">
-                                        收起
-                                        <van-icon 
-                                            size="22rpx"
-                                            color="#999999"
-                                            name="arrow-up">
-                                        </van-icon>
-                                    </view>
-                                  </view> -->
-                </view>
-                <view class="down-ticket">
-                  <view class="down-ticket-1">
-                    {{item.time}}
+    <!-- <van-icon wx:if={{!item.isShowRule}}
+                      size="22rpx"
+                      color="#999999"
+                      name="arrow-down">
+                    </van-icon> -->
+    <!-- <view class="show-hide-text" wx:if={{item.isShowRule}}>
+                      {{mock.rule}}
+                      <view @tap="showTicketRule(item)">
+                          收起
+                          <van-icon 
+                              size="22rpx"
+                              color="#999999"
+                              name="arrow-up">
+                          </van-icon>
+                      </view>
+                    </view> -->
                   </view>
-                  <view class="down-ticket-2">
-                    <van-button size="mini" round type="primary">去使用</van-button>
+                  <view class="down-ticket">
+                    <view class="down-ticket-1">
+                      有效期至{{item.EndTime}}
+                    </view>
+                    <view class="down-ticket-2">
+                      <van-button size="mini" round type="primary">去使用</van-button>
+                    </view>
                   </view>
                 </view>
               </view>
             </view>
-          </view>
-        </van-tab>
-        <van-tab title="已使用">
-          <view class="ticket-item-contain-1">
-            <!-- <view class="show-no-ticket"> 
-                          <image src="../image/no-record.png" />
-                          <text>暂无记录</text>
-                      </view> -->
-            <view class="show-all-ticket" wx:for={{ticketList1}} wx:for-index="index" wx:for-item="item" wx:key="index">
-              <view style="border-radius:10rpx">
-                <view class="up-ticket">
-                  <view class="show-money show-money-1">
-                    ￥<text>{{item.money}}</text>
+          </van-tab>
+          <van-tab title="已使用">
+            <view class="ticket-item-contain-1">
+              <view class="show-no-ticket"> 
+                <image src="../image/no-record.png" />
+                <text>暂无记录</text>
+              </view>
+              <view class="show-all-ticket" wx:for={{ticketListOld}} wx:for-index="index" wx:for-item="item" wx:key="index">
+                <view style="border-radius:10rpx">
+                  <view class="up-ticket">
+                    <view class="show-money show-money-1">
+                      ￥<text>{{item.money}}</text>
+                    </view>
+                    <view class="show-ticket-info">
+                      <view class="ticket-title">箴创优惠券</view>
+                      <view class="ticket-sub-title">卡券号：{{item.CouponNo}}</view>
+                    </view>
                   </view>
-                  <view class="show-ticket-info">
-                    <view class="ticket-title">{{item.title}}</view>
-                    <view class="ticket-sub-title">{{item.subtitle}}</view>
+                  <view class="how-to-use">
+                    <!-- <text data-index="{{index}}" wx:if={{!item.isShowRule}}  @tap="showTicketRule">使用说明</text> -->
+    <!-- <van-icon wx:if={{!item.isShowRule}}
+                      size="22rpx"
+                      color="#999999"
+                      name="arrow-down">
+                    </van-icon> -->
+    <!-- <view class="show-hide-text" wx:if={{item.isShowRule}}>
+                      {{mock.rule}}
+                      <view @tap="showTicketRule(item)">
+                          收起
+                          <van-icon 
+                              size="22rpx"
+                              color="#999999"
+                              name="arrow-up">
+                          </van-icon>
+                      </view>
+                    </view> -->
                   </view>
-                </view>
-                <view class="how-to-use">
-                  <!-- <text data-index="{{index}}" wx:if={{!item.isShowRule}}  @tap="showTicketRule">使用说明</text> -->
-                  <!-- <van-icon wx:if={{!item.isShowRule}}
-                                    size="22rpx"
-                                    color="#999999"
-                                    name="arrow-down">
-                                  </van-icon> -->
-                  <!-- <view class="show-hide-text" wx:if={{item.isShowRule}}>
-                                    {{mock.rule}}
-                                    <view @tap="showTicketRule(item)">
-                                        收起
-                                        <van-icon 
-                                            size="22rpx"
-                                            color="#999999"
-                                            name="arrow-up">
-                                        </van-icon>
-                                    </view>
-                                  </view> -->
-                </view>
-                <view class="down-ticket">
-                  <view class="down-ticket-1">
-                    {{item.time}}
+                  <view class="down-ticket">
+                    <view class="down-ticket-1">
+                      {{item.time}}
+                    </view>
+    <!-- <view class="down-ticket-2">
+                      <van-button size="mini" round type="primary">去使用</van-button>
+                    </view> -->
                   </view>
-                  <!-- <view class="down-ticket-2">
-                                    <van-button size="mini" round type="primary">去使用</van-button>
-                                  </view> -->
                 </view>
               </view>
             </view>
-          </view>
-        </van-tab>
-        <van-tab title="已失效">
-          <view class="ticket-item-contain-1">
-            <!-- <view class="show-no-ticket"> 
-                          <image src="../image/no-record.png" />
-                          <text>暂无记录</text>
-                      </view> -->
-            <view class="show-all-ticket" wx:for={{ticketList1}} wx:for-index="index" wx:for-item="item" wx:key="index">
-              <view style="border-radius:10rpx">
-                <view class="up-ticket">
-                  <view class="show-money show-money-1">
-                    ￥<text>{{item.money}}</text>
-                  </view>
-                  <view class="show-ticket-info">
-                    <view class="ticket-title">{{item.title}}</view>
-                    <view class="ticket-sub-title">{{item.subtitle}}</view>
-                  </view>
-                </view>
-                <view class="how-to-use">
-                  <!-- <text data-index="{{index}}" wx:if={{!item.isShowRule}}  @tap="showTicketRule">使用说明</text> -->
-                  <!-- <van-icon wx:if={{!item.isShowRule}}
-                                    size="22rpx"
-                                    color="#999999"
-                                    name="arrow-down">
-                                  </van-icon> -->
-                  <!-- <view class="show-hide-text" wx:if={{item.isShowRule}}>
-                                    {{mock.rule}}
-                                    <view @tap="showTicketRule(item)">
-                                        收起
-                                        <van-icon 
-                                            size="22rpx"
-                                            color="#999999"
-                                            name="arrow-up">
-                                        </van-icon>
-                                    </view>
-                                  </view> -->
-                </view>
-                <view class="down-ticket">
-                  <view class="down-ticket-1">
-                    {{item.time}}
-                  </view>
-                  <!-- <view class="down-ticket-2">
-                                    <van-button size="mini" round type="primary">去使用</van-button>
-                                  </view> -->
-                </view>
-              </view>
-            </view>
-          </view>
-        </van-tab>
-      </van-tabs>
+          </van-tab>
+
+        </van-tabs>
+      </view>
     </view>
-  </view>
-</template>
-<script>
-import wepy from 'wepy'
-import config from "./../utils/config"
+  </template>
+  <script>
+  import wepy from 'wepy'
+  import config from "./../utils/config"
+  import request from '../utils/request'
+  import api from '../utils/api'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的优惠券',
+    }
+    onLoad() {
+      this.initTicketList();
 
-export default class Index extends wepy.page {
-  config = {
-    navigationBarTitleText: '我的优惠券',
-  }
-  onReady() {
-    this.initTicketList();
-  }
-  data = {
-
-    ticketList: [{
-      title: "1元视频抵扣券",
-      money: 1,
-      subtitle: "单张票价需超过50元可用",
-      time: "有效期2019.03.20至2019.04.19",
-    }, {
-      title: "2元相机抵扣券",
-      money: 2,
-      subtitle: "单张票价需超过30元可用",
-      time: "有效期2019.03.20至2019.04.19",
-    }, {
-      title: "3元视频抵扣券",
-      money: 3,
-      subtitle: "单张票价需超过100元可用",
-      time: "有效期2019.03.20至2019.04.19",
-    }],
-    ticketList1: [{
-      title: "1元视频抵扣券",
-      money: 1,
-      subtitle: "单张票价需超过50元可用",
-      time: "有效期2019.03.20至2019.04.19",
-    }, {
-      title: "2元相机抵扣券",
-      money: 2,
-      subtitle: "单张票价需超过30元可用",
-      time: "有效期2019.03.20至2019.04.19",
-    }, ],
-    sms: ""
-  }
-  methods = {
-
-    exchangeCoupon(e) {
-      console.log(this.sms)
-    },
-    complete(e) {
-      this.sms = e.detail.value;
     }
 
-  }
+    data = {
 
-  events = {
+      ticketList: [],
+      ticketListOld:[],
+      sms: ""
+    }
+    methods = {
 
-  }
-  initTicketList() {
-    for (let i of this.ticketList) {
-      i.isShowRule = false
+      exchangeCoupon(e) {
+        console.log(this.sms)
+      },
+      complete(e) {
+        this.sms = e.detail.value;
+      },
+      
+    }
+
+    events = {
+
+    }
+    initTicketList() {
+      request.httpPostJY(api.service.getUserCoupon,{UserId:1,Status:1},(isOk,data)=>{
+        console.log(data);
+        if(data.Data.length>0){
+          for(var e in data.Data){
+            console.log(e)
+            data.Data[e].EndTime=this.recodeTime(data.Data[e].EndTime)
+          }
+          
+        }
+        this.ticketList=data.Data;
+
+        this.$apply()
+      })
+      request.httpPostJY(api.service.getUserCoupon,{UserId:1,Status:2},(isOk,data)=>{
+        console.log(data);
+        if(data.Data.length>0){
+          for(var e in data.Data){
+            console.log(e)
+            data.Data[e].EndTime=this.recodeTime(data.Data[e].EndTime)
+          }
+          
+        }
+        this.ticketListOld=data.Data;
+
+        this.$apply()
+      })
+    }
+    recodeTime(time){
+      console.log(time)
+      return time.replace("T"," ")
     }
   }
-}
 
-</script>
-<style lang="less">
-page {
-  background: #eee;
-}
+  </script>
+  <style lang="less">
+  page {
+    background: #eee;
+  }
 
-.course-page-navtab {
-  width: 100%;
-  background: #fff;
-}
+  .course-page-navtab {
+    width: 100%;
+    background: #fff;
+  }
 
-.ticket-item-contain {
-  width: 100%;
-  background: #eee;
-}
+  .ticket-item-contain {
+    width: 100%;
+    background: #eee;
+  }
 
-.ticket-item-contain-1 {
-  width: 100%;
-  background: #eee;
-  box-sizing: border-box;
-  padding-top: 10rpx;
-  color: #8a8a8a;
-}
+  .ticket-item-contain-1 {
+    width: 100%;
+    background: #eee;
+    box-sizing: border-box;
+    padding-top: 10rpx;
+    color: #8a8a8a;
+  }
 
-.show-no-ticket {
-  width: 100%;
-  height: 300rpx;
-  font-size: 32rpx;
-  color: #8a8a8a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .show-no-ticket {
+    width: 100%;
+    height: 300rpx;
+    font-size: 32rpx;
+    color: #8a8a8a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.show-no-ticket image {
-  width: 120rpx;
-  height: 120rpx;
-}
+  .show-no-ticket image {
+    width: 120rpx;
+    height: 120rpx;
+  }
 
-.show-all-ticket>view {
-  width: 90%;
-  margin: 20rpx auto 0rpx;
-  height: auto;
-  background-color: #fff;
-}
+  .show-all-ticket>view {
+    width: 90%;
+    margin: 20rpx auto 0rpx;
+    height: auto;
+    background-color: #fff;
+  }
 
-.up-ticket {
-  width: 100%;
-  height: 140rpx;
-  display: flex;
-  flex-direction: row;
-}
+  .up-ticket {
+    width: 100%;
+    height: 140rpx;
+    display: flex;
+    flex-direction: row;
+  }
 
-.show-money {
-  width: 180rpx;
-  height: 100%;
-  text-align: center;
-  line-height: 140rpx;
-  color: red;
-}
+  .show-money {
+    width: 180rpx;
+    height: 100%;
+    text-align: center;
+    line-height: 140rpx;
+    color: red;
+  }
 
-.show-money text {
-  font-size: 70rpx;
-}
+  .show-money text {
+    font-size: 70rpx;
+  }
 
-.show-money-1 {
-  color: #8a8a8a
-}
+  .show-money-1 {
+    color: #8a8a8a
+  }
 
-.show-ticket-info {
-  box-sizing: border-box;
-  padding-left: 20rpx;
-}
+  .show-ticket-info {
+    box-sizing: border-box;
+    padding-left: 20rpx;
+  }
 
-.ticket-title {
-  margin-top: 20rpx;
-  font-size: 32rpx;
-  font-weight: 600;
-}
+  .ticket-title {
+    margin-top: 20rpx;
+    font-size: 32rpx;
+    font-weight: 600;
+  }
 
-.ticket-sub-title {
-  margin-top: 20rpx;
-  font-size: 24rpx;
-  color: #999;
-}
+  .ticket-sub-title {
+    margin-top: 20rpx;
+    font-size: 24rpx;
+    color: #999;
+  }
 
-.how-to-use {
-  width: 100%;
-  height: auto;
-  text-align: center;
-  color: #999;
-  font-size: 22rpx;
-}
+  .how-to-use {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    color: #999;
+    font-size: 22rpx;
+  }
 
-.show-hide-text {
-  width: 90%;
-  height: auto;
-  box-sizing: border-box;
-  padding: 15rpx 0rpx;
-  text-align: left;
-  margin: 0 auto;
-}
+  .show-hide-text {
+    width: 90%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 15rpx 0rpx;
+    text-align: left;
+    margin: 0 auto;
+  }
 
-.show-hide-text>view {
-  text-align: center;
-}
+  .show-hide-text>view {
+    text-align: center;
+  }
 
-.down-ticket {
-  width: 100%;
-  height: 80rpx;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  border-top: 1rpx dashed #ddd;
-}
+  .down-ticket {
+    width: 100%;
+    height: 80rpx;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border-top: 1rpx dashed #ddd;
+  }
 
-.down-ticket-1 {
-  width: 70%;
-  box-sizing: border-box;
-  padding-left: 10rpx;
-  font-size: 25rpx;
-  color: #999;
-  line-height: 80rpx
-}
+  .down-ticket-1 {
+    width: 70%;
+    box-sizing: border-box;
+    padding-left: 10rpx;
+    font-size: 25rpx;
+    color: #999;
+    line-height: 80rpx
+  }
 
-.down-ticket-2 {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .down-ticket-2 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
 
-.space-top {
-  margin-top: 50rpx;
-}
+  .space-top {
+    margin-top: 50rpx;
+  }
 
-</style>
+  </style>

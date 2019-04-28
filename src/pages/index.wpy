@@ -60,8 +60,8 @@ export default class Index extends wepy.page {
   data = {
     bannerList: [],
     groups: [],
-    area2: "大咖课",
-    area1: "精品专栏",
+    area2: "专栏",
+    area1: "精品推荐",
     num1: 4,
     num2: 6,
     ExcellentCollageList:[{},{},{},{}],
@@ -128,8 +128,9 @@ export default class Index extends wepy.page {
      request.httpGetJY(api.service.getHomeBannerInfo, {}, (isOk, data) => {
       let result = data;
       if (result.Code == "200") {
-        console.log("xxxxsssss", result.Data)
+
         that.bannerList = result.BannerList;
+        console.log(that.bannerList)
         that.ExcellentCollageList=result.ExcellentCollageList;
         that.DaKaCollageList=result.DaKaCollageList;
         that.$apply()

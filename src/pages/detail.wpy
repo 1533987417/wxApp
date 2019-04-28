@@ -2,9 +2,7 @@
   <view style="background-color:#F7F7F7">
     <view>
       <video class="image-all" wx:if="{{videourl}}" custom-cache="{{false}}" src="{{videourl}}" enable-play-gesture auto-pause-if-open-native auto-pause-if-navigate show-mute-btn show-center-play-btn show-progress bindplay="playVideo" bindwaiting="waitVideo">
-        <cover-view class="video-control">
-          123
-        </cover-view>
+        
       </video>
     </view>
     <view>

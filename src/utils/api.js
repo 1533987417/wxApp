@@ -55,7 +55,7 @@ var api = {
 
     getUserDetail: `${host}/api/v1/user/GetUserDetail`,
 
-    getMyPost: `${host}/getMyPost`,
+    getUserCoupon: `${host}/api/v1/coupon/GetUserCoupon/`,
 
     getPostsCount: `${host}/getPostsCount`,
 

@@ -38,7 +38,7 @@ export default class cardself extends wepy.component {
       default: 6
     },
     pageData: [{},{},{},{}],
-    showData:[]
+    showData:[{}]
   }
 
   /*onLoad() {
