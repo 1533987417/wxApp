@@ -57,13 +57,7 @@ var api = {
 
     getUserCoupon: `${host}/api/v1/coupon/GetUserCoupon/`,
 
-    getPostsCount: `${host}/getPostsCount`,
-
-    getCollegeTopics: `${host}/getCollegeTopics`,
-
-    getcollegeTopicsCount: `${host}/getcollegeTopicsCount`,
-
-    Top5News: `${host}/Top5News`,
+    exchangeCoupon: `${host}/api/v1/coupon/ExchangeCoupon`,
 
     PageNews: `${host}/PageNews`,
 

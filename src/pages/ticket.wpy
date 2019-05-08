@@ -50,7 +50,7 @@
                       有效期至{{item.EndTime}}
                     </view>
                     <view class="down-ticket-2">
-                      <van-button size="mini" round type="primary">去使用</van-button>
+                      <van-button data-hi="{{item.CouponNo}}" @tap="exchangeCoupon" size="mini" round type="primary">兑换</van-button>
                     </view>
                   </view>
                 </view>
@@ -59,7 +59,7 @@
           </van-tab>
           <van-tab title="已使用">
             <view class="ticket-item-contain-1">
-              <view class="show-no-ticket"> 
+              <view class="show-no-ticket" wx:if="{{ticketListOld.length==0}}"> 
                 <image src="../image/no-record.png" />
                 <text>暂无记录</text>
               </view>
@@ -67,7 +67,7 @@
                 <view style="border-radius:10rpx">
                   <view class="up-ticket">
                     <view class="show-money show-money-1">
-                      ￥<text>{{item.money}}</text>
+                      ￥<text>{{item.Amount/100}}</text>
                     </view>
                     <view class="show-ticket-info">
                       <view class="ticket-title">箴创优惠券</view>
@@ -109,12 +109,14 @@
         </van-tabs>
       </view>
     </view>
+    <van-toast id="van-toast" />
   </template>
   <script>
   import wepy from 'wepy'
   import config from "./../utils/config"
   import request from '../utils/request'
   import api from '../utils/api'
+  import Toast from '../components/vant/toast/toast'
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: '我的优惠券',
@@ -128,12 +130,21 @@
 
       ticketList: [],
       ticketListOld:[],
-      sms: ""
+      sms: "ss"
     }
     methods = {
 
       exchangeCoupon(e) {
-        console.log(this.sms)
+        console.log(e.currentTarget.dataset.hi)
+        var no=e.currentTarget.dataset.hi;
+        request.httpPostJY(api.service.exchangeCoupon,{UserId:this.$parent.globalData.userInfo.UserId,CouponNo:no},(isOk,data)=>{
+          console.log(data);
+          if(data.IsSuccess){
+            Toast.success('兑换成功');
+            this.initTicketList()
+          }
+          
+        })
       },
       complete(e) {
         this.sms = e.detail.value;
@@ -145,7 +156,7 @@
 
     }
     initTicketList() {
-      request.httpPostJY(api.service.getUserCoupon,{UserId:1,Status:1},(isOk,data)=>{
+      request.httpPostJY(api.service.getUserCoupon,{UserId:1,Status:0},(isOk,data)=>{
         console.log(data);
         if(data.Data.length>0){
           for(var e in data.Data){
@@ -158,7 +169,7 @@
 
         this.$apply()
       })
-      request.httpPostJY(api.service.getUserCoupon,{UserId:1,Status:2},(isOk,data)=>{
+      request.httpPostJY(api.service.getUserCoupon,{UserId:1,Status:1},(isOk,data)=>{
         console.log(data);
         if(data.Data.length>0){
           for(var e in data.Data){

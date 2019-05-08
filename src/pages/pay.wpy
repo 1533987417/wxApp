@@ -11,7 +11,7 @@
       <view class="amount">充值(1元=1创币)</view>
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view @tap="click">
-          <input class="amount" type="Numer" value="{{amount}}" placeholder="输入金额" name="充值金额" />
+          <input wx:if="{{false}}" class="amount" type="Numer" value="{{amount}}" placeholder="输入金额" name="充值金额" />
           <view style="display:flex;flex-wrap: row">
             <button plain data-amount="18" class="{{amount==18?'btn-hover':'btn'}}">18元</button>
             <button plain data-amount="68" class="{{amount==68?'btn-hover':'btn'}}">68元</button>
