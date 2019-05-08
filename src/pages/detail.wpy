@@ -114,7 +114,7 @@
 </view>
 <modal title="有任何问题添加管理员微信或拨打客服热线" wx:if="{{hiddenContant}}" bindconfirm="modalConfirm" confirmText="呼叫" bindcancel="modalCandel">
   <view>
-    <image class="image" src="../image/webwxgetmsgimg.jpg" mode='aspectFill'></image>
+    <image class="image" src="../image/weixin.png" mode='aspectFill'></image>
 
   </modal>
 
@@ -187,7 +187,7 @@ export default class test extends wepy.page {
     },
     modalConfirm(){
       wx.makePhoneCall({
-  phoneNumber: '17715879315' // 仅为示例，并非真实的电话号码
+  phoneNumber: '13179649825' // 仅为示例，并非真实的电话号码
 })
     },
     modalCandel(){
