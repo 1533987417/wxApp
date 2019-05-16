@@ -7,7 +7,7 @@
       <view wx:for="{{showData}}" @tap="toUrl" data-id="{{item.Id}}" wx:for-index="index" wx:for-item="item" wx:key="index">
         <view class="card-img">
           <text class="card-sign" wx:if="{{item.sign !== ''}}">{{item.sign}}</text>
-          <image src={{item.SmallImageUrl}} />
+          <image src="{{item.SmallImageUrl}}"></image>
         </view>
         <view class="card-desc">
           <text class="card-desc-title">{{item.Title}}</text>
@@ -16,7 +16,7 @@
           <van-icon class="icon-people" size="22rpx" color="#999999" name="manager">
           </van-icon>
           <text class="card-desc-info people-num">{{item.ViewCountitem}}</text>
-          <text class="card-desc-info price">￥{{item.SalePrice/100}}</text><span wx:if="{{item.CollagePrice!=item.PayAmount}}" style="text-decoration:line-through;color:#707070;font-size: 24rpx">￥{{item.CollagePrice/100}}</span>
+          <text hidden="{{isIos}}" class="card-desc-info price">￥{{item.SalePrice/100}}</text><text hidden="{{isIos}}" wx:if="{{item.CollagePrice!=item.PayAmount}}"  style="text-decoration:line-through;color:#707070;font-size: 24rpx">￥{{item.CollagePrice/100}}</text>
 
         </view>
       </view>
@@ -38,9 +38,14 @@ export default class cardself extends wepy.component {
       default: 6
     },
     pageData: [{},{},{},{}],
-    showData:[{}]
-  }
+    showData:[{}],
 
+  }
+  onLoad() {
+    this.isIos=this.$parent.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+    this.$apply()
+    console.log("1111",this.isIos)
+  }
   /*onLoad() {
     console.log(321321);
     console.log(this.title);
@@ -73,14 +78,17 @@ export default class cardself extends wepy.component {
     showData() {
       console.log("xxxxxx", this.size);
       return this.pageData.slice(0, this.size)
+    },
+    isIos(){
+      console.log("computer",this.isIos)
+      return this.isIos
     }
   }
 
   data = {
     message: "免费专区",
-    
     pageData: [{},{},{},{}],
-
+    isIos:Boolean
   }
 
   methods = {

@@ -95,7 +95,7 @@
                   </view>
                   <view class="down-ticket">
                     <view class="down-ticket-1">
-                      {{item.time}}
+                      使用时间{{item.time}}
                     </view>
     <!-- <view class="down-ticket-2">
                       <van-button size="mini" round type="primary">去使用</van-button>

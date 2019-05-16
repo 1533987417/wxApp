@@ -23,7 +23,7 @@
             <button plain data-amount="588" class="{{amount==588?'btn-hover':'btn'}}">588元</button>
           </view>
         </view>
-        <button class='btn1' form-type="submit">
+        <button wx:if="{{!isIos}}" class='btn1' form-type="submit">
           <view>去充值</view>
         </button>
       </form>
@@ -72,7 +72,8 @@ export default class pay extends wepy.page {
     heightTotal: 504,
     userInfo: {},
     amount: "",
-    currentMoney:""
+    currentMoney:"",
+    isIos:false
   }
 
   computed = {
@@ -174,6 +175,7 @@ export default class pay extends wepy.page {
     if (!that.userInfo.UserId) {
       Toast.fail('网络在开小差');
     }
+    this.isIos=this.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
     console.log(that.userInfo.Balance)
     that.$apply();
 

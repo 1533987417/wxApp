@@ -20,7 +20,7 @@
       </swiper>
     </view>
     <view>
-      <cardself :title="area1" :size="num1" :pageData.sync="ExcellentCollageList"></cardself>
+      <cardself :title="area1" :size="num1"  :pageData.sync="ExcellentCollageList"></cardself>
     </view>
     <view>
       <cardself1 :title="area2" :size="num2" :pageData.sync="DaKaCollageList"></cardself1>
@@ -65,7 +65,7 @@ export default class Index extends wepy.page {
     num1: 4,
     num2: 6,
     ExcellentCollageList:[{},{},{},{}],
-    DaKaCollageList:[{},{},{},{}]
+    DaKaCollageList:[{},{},{},{}],
   }
 
   computed = {
@@ -112,11 +112,7 @@ export default class Index extends wepy.page {
     var that = this;
 
     console.log("进入了index")
-
-
-
     
-
     request.httpGetOpenid(function(data) {
      request.httpPostJY(api.service.getCollageCategoryList, { "GroupName": "首页导航" }, (isOk, data) => {
       console.log(data)

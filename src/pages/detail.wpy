@@ -1,16 +1,17 @@
 <template>
-  <view style="background-color:#F7F7F7">
+  <view style="background-color:#F7F7F7;margin-bottom:50rpx">
+
     <view>
       <video class="image-all" wx:if="{{videourl}}" custom-cache="{{false}}" src="{{videourl}}" enable-play-gesture auto-pause-if-open-native auto-pause-if-navigate show-mute-btn show-center-play-btn show-progress bindplay="playVideo" bindwaiting="waitVideo">
-        
+
       </video>
     </view>
     <view>
       <image wx:if="{{showBanner}}" class="image-all" src="{{collegeDetailEntity.SmallImageUrl}}" mode="scaleToFill"></image>
     </view>
     <view>
-      <van-tabs bind:click="onClick" swipeable active={{tabActive}}>
-        <van-tab title="课程介绍">
+      <van-tabs bind:click="onClick" swipeable active="{{tabActive}}">
+        <van-tab title="课程介绍" style="">
           <view>
             <van-cell title-class="intro-title" label-class="intro-desc" title="{{collegeDetailEntity.Title}}" label="难度：{{collegeDetailEntity.Level==0?'初级':collegeDetailEntity.Level==1?'中级':'高级'}} |  人数：{{collegeDetailEntity.ViewCount}}" border="{{ true }}" />
           </view>
@@ -25,7 +26,7 @@
                 <view slot="title">
                   <view>{{item.UserName}} </view>
                   <view><text class="rate-font">评分</text></view>
-                  <van-rate value="{{ item.Scroe }}" size=14 count=5 readonly></van-rate>
+                  <van-rate value="{{ item.Scroe}}" size="14" count="5" readonly></van-rate>
                   <view>{{item.Content}}</view>
                 </view>
               </view>
@@ -50,20 +51,21 @@
           </view>
         </van-cell-group>
         <van-cell custom-class="class-contain" title-class="rate-title" border="{{ false }}" title="课程内容"></van-cell>
-        <van-cell border="{{ false }}">
+        <van-cell custom-class="class-content" border="{{ false }}">
           <view slot="title">
             <wxparser rich-text="{{collegeDetailEntity.CollageContent}}"></wxparser>
           </view>
         </van-cell>
       </van-tab>
       <van-tab title="课程目录">
-        <scroll-view scroll-y="true" style="height: 800rpx;">
+        <scroll-view scroll-y="true" style="margin-bottom:{{collegeDetailEntity.collageClassEntities?60:0}}rpx;">
           <view Slot="Tab">
             <view wx:for="{{collegeDetailEntity.collageClassEntities}}" wx:key="id" wx:for-item="item">
               <van-panel>
                 <view data-item="{{item}}" @tap="clickitem" slot="header" class="detail-item">
                   <image class="detail_header_img" src="../image/video.png"></image>
                   <view class="detail_header_title">{{item.ClassName}}</view>
+                  <view class="detail_header_detail">{{item.ClassDetail}}</view>
                   <view class="detail_header_time">时长:{{item.ClassTimeLong}}</view>
                 </view>
               </van-panel>
@@ -83,7 +85,7 @@
                 <view slot="title">
                   <view>{{item.UserName}} </view>
                   <view><text class="rate-font">评分</text></view>
-                  <van-rate value="{{ item.Scroe }}" size=14 count=5 readonly></van-rate>
+                  <van-rate value="{{ item.Scroe}}" size="14" count="5" readonly></van-rate>
                   <view>{{item.Content}}</view>
                 </view>
               </view>
@@ -95,28 +97,36 @@
   </van-tabs>
 </view>
 <van-toast id="van-toast" />
-<van-goods-action>
+<van-goods-action safe-area-inset-bottom="{{false}}" custom-class="tab">
   <van-goods-action-icon icon="chat-o" text="客服" bind:click="onClickIcon" />
-  <van-goods-action-button data-share="{{userinfo}}" open-type="share" text="分享赚佣" type="warning" />
-  <van-goods-action-button wx:if="{{!isBuy}}" text="立即购买" bind:click="buy" />
+  <van-goods-action-button data-share="{{userinfo}}" open-type="share" text="分享" type="warning" />
+  <van-goods-action-button bind:click="onClickIcon" wx:if="{{!isBuy&&isIos}}" text="咨询" />
+  <van-goods-action-button wx:if="{{!isBuy&&!isIos}}" text="立即购买" bind:click="buy" />
   <van-goods-action-button wx:if="{{isBuy}}" text="评论" bind:click="rate" />
 </van-goods-action>
-<van-popup position="bottom" show="{{ show }}" bind:close="onClose">
+<van-popup position="bottom"  show="{{ show }}" bind:close="onClose" safe-area-inset-top="{{true}}" custom-class="rate-content">
   <view class="rate">
     <van-rate value="{{ rateValue }}" bind:change="onChange" />
   </view>
   <van-cell-group>
-    <van-field bind:blur="complete" data-rate="{{message}}" value="{{ message }}" type="text" placeholder="说说课程的亮点和不足吧" border="{{ true }}" use-button-slot>
-      <van-button slot="button" size="small" type="primary" data-rate="{{ message }}" bind:click="sendRate">发表</van-button>
-    </van-field>
-  </van-cell-group>
+   <!-- <van-field bind:blur="complete" data-rate="{{message}}" type="text" placeholder="说说课程的亮点和不足吧" border="{{ true }}"
+   use-button-slot>
+   <van-button slot="button" size="small" type="primary" data-rate="{{ message }}" bind:click="sendRate">发表</van-button>
+ </van-field> -->
+ <view style="display:flex;margin-top:10rpx;margin-bottom:10rpx;height:80rpx">
+  <view><input placeholder-style="height:70rpx;padding-top:5rpx" cursor-spacing="5" bindblur="complete" data-rate="{{message}}" class="rate-text" type="text" name="" placeholder="说说你的观点">
+  </input></view>
+  <view> <van-button custom-class="rate-btn" size="small" type="primary" data-rate="{{ message }}" bind:click="sendRate">发表</van-button></view>
+
+</view>
+</van-cell-group>
 </van-popup>
 </view>
 <modal title="有任何问题添加管理员微信或拨打客服热线" wx:if="{{hiddenContant}}" bindconfirm="modalConfirm" confirmText="呼叫" bindcancel="modalCandel">
   <view>
     <image class="image" src="../image/weixin.png" mode='aspectFill'></image>
-
-  </modal>
+  </view>
+</modal>
 
 </template>
 <script>
@@ -145,7 +155,9 @@ export default class test extends wepy.page {
       "van-toast": "../components/vant/toast/index",
       "wxparser": "plugin://wxparserPlugin/wxparser",
       "van-popup": "../components/vant/popup/index",
-      "van-button": "../components/vant/button/index"
+      "van-button": "../components/vant/button/index",
+      "van-field": "../components/vant/field/index"
+
     }
   }
   components = {
@@ -169,7 +181,8 @@ export default class test extends wepy.page {
     id: "",
     isBuy: false,
     userinfo: {},
-    hiddenContant:false
+    hiddenContant:false,
+    isIos:false
 
   }
 
@@ -350,6 +363,10 @@ export default class test extends wepy.page {
   onLoad(item) {
     var that = this;
     console.log(db.Get("token"))
+
+    console.log(this.$parent.globalData.deviceInfo.model)
+    this.isIos=this.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+    console.log("2222",this.isIos)
     this.ShareUserId = item.ShareUserId;
     this.userinfo = this.$parent.globalData.userInfo;
     this.id = item.id;
@@ -386,14 +403,14 @@ export default class test extends wepy.page {
 }
 
 .detail_header_title {
-  max-width: 500rpx;
+  max-width: 600rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   float: center;
   padding: 30rpx 10rpx;
   font-size: 100%;
-  width: 400rpx;
+  width: 600rpx;
 }
 
 .detail-item {
@@ -403,9 +420,19 @@ export default class test extends wepy.page {
 .detail_header_time {
   font-size: 80%;
   color: #707070;
-  padding: 10rpx 60rpx;
+  padding: 10rpx 75rpx;
 }
+.detail_header_detail{
+  max-width: 600rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 90%;
+  color: #707070;
+  padding-left:75rpx;
+  margin-top:-30rpx;
 
+}
 .detail_header_status {
   position: absolute;
   font-size: 80%;
@@ -498,7 +525,23 @@ export default class test extends wepy.page {
 .rate {
   margin-left: 30rpx;
   margin-top: 30rpx;
-  margin-bottom: 30rpx;
 }
+.rate-text{
+  margin-left: 40rpx;
+  height:40rpx;
+  margin-top:15rpx;
 
+}
+.rate-btn{
+ position:absolute !important;
+ right:20rpx;
+ height: 50rpx;
+ margin-top:15rpx;
+
+}
+.class-content{margin-bottom:60rpx;}
+.rate-content{
+  padding-bottom: 40rpx
+}
 </style>
+

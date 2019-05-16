@@ -99,7 +99,8 @@
             {{item.Title}}
           </view>
           <view class="subTitle">{{item.Description}}</view>
-          <view class="mintitle">{{item.ViewCount}}人在学  <text class="price">￥{{item.SalePrice/100}}</text><span wx:if="{{item.CollagePrice!=item.PayAmount}}" style="text-decoration:line-through;color:#707070">￥{{item.CollagePrice/100}}</span></view>
+          <view class="mintitle">{{item.ViewCount}}人在学  <text hidden=
+            "{{isIos}}" class="price">￥{{item.SalePrice/100}}</text><span  wx:if="{{item.CollagePrice!=item.PayAmount&&!isIos}}"  style="text-decoration:line-through;color:#707070">￥{{item.CollagePrice/100}}</span></view>
         <!-- <view class="desc">
           查看回放
         </view> -->
@@ -120,6 +121,7 @@ export default class goodsItem extends wepy.component {
     imageURL: "",
     CollageList: [],
     PageIndex: 0,
+    isIos:true
 
 
   }
@@ -129,7 +131,7 @@ export default class goodsItem extends wepy.component {
 
 
   props = {
-    categoryId: ""
+    categoryId: "",
   }
   events = {
     'index-broadcast': (...args) => {
@@ -174,13 +176,17 @@ export default class goodsItem extends wepy.component {
     this.PageIndex = this.PageIndex + 1
   }
   onLoad() {
-    console.log("zizjujian" + this.categoryId);
-    this.CollageList = [];
-    this.$apply()
-    this.getCollageList()
 
-  }
-  
+   this.isIos=this.$parent.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+
+   console.log("zizjujian" + this.isIos);
+   this.CollageList = [];
+   this.PageIndex=0;
+   this.$apply()
+   this.getCollageList()
+
+ }
+
 
 }
 

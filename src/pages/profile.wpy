@@ -19,7 +19,7 @@
           <view>昵称</view>
         </view>
       </van-cell>
-      <van-cell is-link clickable>
+      <van-cell is-link clickable >
         <view slot="value"><picker mode="selector" bindchange="bindPickerChange" range="{{sexlist}}" value="{{sexlist[index]}}" name="Sex">{{sexlist[index]}}</picker>
         </view>
         <view slot="title">

@@ -1,5 +1,5 @@
 <template>
-  <goodsItem :categoryId.sync="categoryId"></goodsItem>
+  <goodsItem :categoryId.sync="categoryId" :isIos.sync="isIos"></goodsItem>
 </template>
 <script>
 import wepy from 'wepy'
@@ -24,7 +24,8 @@ export default class test extends wepy.page {
 
 
   data = {
-    categoryId:""
+    categoryId:"",
+    isIos:"true"
   }
 
   computed = {
@@ -45,18 +46,20 @@ export default class test extends wepy.page {
   }
 
   onLoad(e) {
-   console.log(e);
-   this.categoryId=e.Id;
-   this.$apply()
-   wx.setNavigationBarTitle({
-    title: e.categoryName
-  })
- }
- onReachBottom(e){
-  console.log("ssssssss");
-  this.$invoke('goodsItem','addPageIndex')
-  this.$invoke('goodsItem','getCollageList')
-}
+    this.isIos=this.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+
+    console.log(e);
+    this.categoryId=e.Id;
+    this.$apply()
+    wx.setNavigationBarTitle({
+      title: e.categoryName
+    })
+  }
+  onReachBottom(e){
+    console.log("ssssssss");
+    this.$invoke('goodsItem','addPageIndex')
+    this.$invoke('goodsItem','getCollageList')
+  }
 
 }
 

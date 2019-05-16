@@ -11,7 +11,7 @@
             {{item.Title}}
           </view>
           <view class="subTitle">{{item.Description}}</view>
-          <view class="mintitle">{{item.ViewCount}}人·{{item.ViewCount}}在学  <text class="price">￥{{item.SalePrice/100}}</text><span wx:if="{{item.CollagePrice!=item.PayAmount}}" style="text-decoration:line-through;color:#707070">￥{{item.CollagePrice/100}}</span></view>
+          <view class="mintitle">{{item.ViewCount}}人·{{item.ViewCount}}在学  <text wx:if="{{!isIos}}" class="price">￥{{item.SalePrice/100}}</text><span wx:if="{{item.CollagePrice!=item.PayAmount&&!isIos}}" style="text-decoration:line-through;color:#707070">￥{{item.CollagePrice/100}}</span></view>
         <!-- <view class="desc">
           查看回放
         </view> -->
@@ -41,11 +41,15 @@ export default class Index extends wepy.page {
 
   }
   onLoad() {
+
+    this.isIos=this.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+    this.$apply()
     this.getMyColleges()
   }
   data = {
     PageIndex: 0,
-    list: []
+    list: [],
+    isIos:"false"
   }
   methods = {
     toUrl(e) {

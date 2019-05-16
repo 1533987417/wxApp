@@ -94,6 +94,7 @@ export default class extends wepy.app {
       success(res) {
         console.log(res)
         that.globalData.deviceInfo = res
+        
       }
 
     })

@@ -1,109 +1,123 @@
 <template>
-  <view>
-    <view class="mypage-info">
-      <view class="mypage-info-image-cover pos-center-avt">
-        <van-tag wx:if="{{showReward}}" class="tag" round type="danger">+100</van-tag>
-        <image @tap="profile" src="{{imgurl}}">  
-        </view>
-        <text class="mypage-info-nickname">{{nickname}}</text>
+  <modal title="有任何问题添加管理员微信或拨打客服热线" wx:if="{{hiddenContant}}" bindconfirm="modalConfirm" confirmText="呼叫" bindcancel="modalCandel">
+    <view>
+      <image class="image" src="../image/weixin.png" mode='aspectFill'></image>
+    </view>
+  </modal>
+  <view class="mypage-info">
+    <view class="mypage-info-image-cover pos-center-avt">
+      <van-tag wx:if="{{showReward}}" class="tag" round type="danger">+100</van-tag>
+      <image @tap="profile" src="{{imgurl}}">  
       </view>
-      <view class="mypage-info-middle">
-        <view>
-          <view class="middle-contain pos-center-avt">
-            <text> 当前余额：</text>
-            <van-icon name="balance-o" style="margin-right:5rpx" />
-            <text style="position:float">{{myPoint/100}} 创币</text>
-          </view>
-        </view>
-        <view>
-          <view class="pos-center-btn">
-            <van-button @tap="recharge" round size="small" style="margin-left:150rpx" type="primary">充</van-button>
-          </view>
+      <text class="mypage-info-nickname">{{nickname}}</text>
+    </view>
+    <view class="mypage-info-middle">
+      <view>
+        <view class="middle-contain pos-center-avt">
+          <text> 当前余额：</text>
+          <van-icon name="balance-o" style="margin-right:5rpx" />
+          <text style="position:float">{{myPoint/100}} 创币</text>
         </view>
       </view>
-      <view class="mypage-info-list">
-        <view class="myInfo-list-item">
-          <view class="show-list-item-icon">
-            <image src="./../image/record.png" class="pos-center-avt" />
-          </view>
-          <view class="show-list-item-title" @tap="toUrl(1)">
-            我的优惠
-          </view>
-          <view class="show-list-item-guide">
-            <van-icon name="arrow" />
-          </view>
-        </view>
-        <view class="myInfo-list-item">
-          <view class="show-list-item-icon">
-            <image src="./../image/ticket.png" class="pos-center-avt" />
-          </view>
-          <view class="show-list-item-title" @tap="toUrl(2)">
-            我的课程
-          </view>
-          <view class="show-list-item-guide">
-            <van-icon name="arrow" />
-          </view>
+      <view>
+        <view class="pos-center-btn">
+          <van-button wx:if="{{!isIos}}" @tap="recharge" round size="small" style="margin-left:150rpx" type="primary">充</van-button>
+          <van-button wx:if="{{isIos}}" @tap="call" round size="small" style="margin-left:150rpx" type="primary">咨询</van-button>
         </view>
       </view>
     </view>
-  </view>
-</template>
-<script>
-import wepy from 'wepy'
-import config from "./../utils/config"
-import helper from "./../utils/helper"
-import request from "./../utils/request"
-import db from "./../utils/db"
-import api from '../utils/api'
+    <view class="mypage-info-list">
+      <view class="myInfo-list-item">
+        <view class="show-list-item-icon">
+          <image src="./../image/record.png" class="pos-center-avt" />
+        </view>
+        <view class="show-list-item-title" @tap="toUrl(1)">
+          我的优惠券
+        </view>
+        <view class="show-list-item-guide">
+          <van-icon name="arrow" />
+        </view>
+      </view>
+      <view class="myInfo-list-item">
+        <view class="show-list-item-icon">
+          <image src="./../image/ticket.png" class="pos-center-avt" />
+        </view>
+        <view class="show-list-item-title" @tap="toUrl(2)">
+          我的课程
+        </view>
+        <view class="show-list-item-guide">
+          <van-icon name="arrow" />
+        </view>
+      </view>
+    </view>
 
-export default class Index extends wepy.page {
-  config = {
-    navigationBarTitleText: '我的信息',
-    enablePullDownRefresh:true,
-    usingComponents: {"van-tag": "../components/vant/tag/index"}
-  }
 
-  data = {
-    url: "https://img.qccip.com/Test/%E7%AE%B4%E5%88%9B%E7%AC%AC%E4%B8%80%E8%AF%BE%E7%B2%BE%E9%80%89%20%E6%9D%8E%E5%AF%BC%200301--20%E5%88%86%E9%92%9F.mp4",
-    imgurl: "",
-    nickname: "",
-    myPoint: "",
-    showReward:false
-  }
 
-  methods = {
-    toUrl(num) {
-      let t = {
-        1: "ticket",
-        2: "course"
-      }
-      wepy.navigateTo({
-        url: t[num]
-      })
-    },
-    recharge() {
-      wepy.navigateTo({
-        url: "pay"
-      })
-    },
-    profile(){
-      wepy.navigateTo({
-        url: "profile"
-      })
+  </template>
+  <script>
+  import wepy from 'wepy'
+  import config from "./../utils/config"
+  import helper from "./../utils/helper"
+  import request from "./../utils/request"
+  import db from "./../utils/db"
+  import api from '../utils/api'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的信息',
+      enablePullDownRefresh:true,
+      usingComponents: {"van-tag": "../components/vant/tag/index"}
     }
-  }
 
-  onLoad() {
-    var that=this;
-    this.getdetail()
+    data = {
+      url: "https://img.qccip.com/Test/%E7%AE%B4%E5%88%9B%E7%AC%AC%E4%B8%80%E8%AF%BE%E7%B2%BE%E9%80%89%20%E6%9D%8E%E5%AF%BC%200301--20%E5%88%86%E9%92%9F.mp4",
+      imgurl: "",
+      nickname: "",
+      myPoint: "",
+      showReward:false,
+      isIos:false,
+      hiddenContant:false
+    }
 
-    this.getProfile()
-  }
-  getProfile(){
-    var that=this;
-    request.httpGetJY(api.service.getUserDetail+"/"+db.Get("userInfo").UserId,{},(isOk,data)=>{
+    methods = {
+      toUrl(num) {
+        let t = {
+          1: "ticket",
+          2: "course"
+        }
+        wepy.navigateTo({
+          url: t[num]
+        })
+      },
 
-      if(data.IsComplate==0){
+      recharge() {
+        wepy.navigateTo({
+          url: "pay"
+        })
+      },
+      profile(){
+        wepy.navigateTo({
+          url: "profile"
+        })
+      },
+      call(){
+        this.hiddenContant=true;
+        this.$apply()
+      }
+    }
+
+    onLoad() {
+      var that=this;
+      this.isIos=this.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+      this.getdetail()
+
+      this.getProfile()
+    }
+    getProfile(){
+      var that=this;
+      request.httpGetJY(api.service.getUserDetail+"/"+db.Get("userInfo").UserId,{},(isOk,data)=>{
+
+        if(data.IsComplate==0){
       //未完善
       that.showReward=true
     }else{
@@ -112,8 +126,8 @@ export default class Index extends wepy.page {
     }
     that.$apply();
   })
-  }
-  getdetail(){
+    }
+    getdetail(){
       // 判断是否有用户信?
       var that = this
       let userinfo = db.Get("userInfo")
@@ -257,6 +271,12 @@ export default class Index extends wepy.page {
  position:absolute;
  margin-left:125rpx;
  width:100%;
+
+}
+.image{
+  height: 400rpx;
+  width: 400rpx;
+  transform:translate(20%);
 
 }
 // #show-border{
