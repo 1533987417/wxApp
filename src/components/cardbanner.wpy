@@ -6,27 +6,19 @@
     </view>
     <view style="background-color:#DFDFDEFF;height:1rpx"></view>
     <view class="card-contain">
-      <view wx:for="{{showData}}" @tap="toUrl" data-id="{{item.Id}}" wx:for-index="index" wx:for-item="item" wx:key="index">
-        <view class="card-img">
-          <text class="card-sign" wx:if="{{item.sign !== ''}}">{{item.sign}}</text>
-          <image src="{{item.SmallImageUrl}}"></image>
-        </view>
-        <view class="card-desc">
-          <text class="card-desc-title">{{item.Title}}</text>
-          <text class="card-desc-info">讲师：{{item.TeacherName}}</text>
-          <view style="background-color:#DFDFDEFF;height:1rpx"></view>
-          <view style="display:flex;margin-top:10rpx">
-            <view wx:if="{{!isIos}}" class="price">￥：{{item.SalePrice/100}}</view>
-            <view data-id="{{item.Id}}" style="display:flex" class="watch-btn2" @tap="toUrl">
-              <view style="margin-top:10rpx;font-size:80%" >立即收听</view>
-              <image class="watch-icon2" src="../image/运行.png"></image>
+      <swiper class="swiper-card" indicator-dots="{{true}}" autoplay>
+        <block class="swiper-container" wx:for="{{pageData}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <swiper-item class="displex-center"  >
+            <view class="swiper-card-item" data-id="{{item.Id}}" @tap="toUrl">
+              <!-- width="355" height="150"  -->
+              <image src="{{item.SmallImageUrl}}" />
             </view>
-
-          </view>
-        </view>
-      </view>
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
   </view>
+</view>
 </template>
 <script>
 import wepy from 'wepy'
@@ -98,7 +90,6 @@ export default class cardself extends wepy.component {
 
   methods = {
     toUrl(e) {
-
       wepy.navigateTo({
         url: 'detail?id=' + e.currentTarget.dataset.id
       })
@@ -114,7 +105,7 @@ export default class cardself extends wepy.component {
   height: auto;
   overflow: hidden;
   background-color:white;
-  margin-top:10rpx
+
 }
 
 .card-nav {

@@ -11,7 +11,7 @@
       </view>
       <text class="mypage-info-nickname">{{nickname}}</text>
     </view>
-    <view class="mypage-info-middle">
+    <view wx:if="{{!isIos}}" class="mypage-info-middle">
       <view>
         <view class="middle-contain pos-center-avt">
           <text> 当前余额：</text>

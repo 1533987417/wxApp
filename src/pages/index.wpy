@@ -10,8 +10,8 @@
     <view style="margin-top:80rpx">
       <swiper class="swiper-card" indicator-dots="{{true}}" autoplay>
         <block class="swiper-container" wx:for="{{bannerList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-          <swiper-item class="displex-center" data-id="{{item.Id}}" @tap="toUrl1">
-            <view class="swiper-card-item">
+          <swiper-item class="displex-center" >
+            <view class="swiper-card-item" >
               <!-- width="355" height="150"  -->
               <image src="{{item.ImageUrl}}" />
             </view>
@@ -19,26 +19,56 @@
         </block>
       </swiper>
     </view>
-    <view>
-      <cardself :title="area1" :size="num1"  :pageData.sync="ExcellentCollageList"></cardself>
-    </view>
-    <view>
-      <cardself1 :title="area2" :size="num2" :pageData.sync="DaKaCollageList"></cardself1>
-    </view>
+    <view style="background-color:white;height:15rpx"></view>
 
+    <view class="notice-bar">
+      <view style="background-color: #FA8E49FF;height:1px;margin-left:20rpx;margin-right:20rpx;margin-bottom:15rpx;">
+      </view>
+      <block>
+       <swiper class="notice" autoplay="{{true}}" interval="4000" duration="1000" vertical="{{true}}" circular="{{true}}">
+        <block wx:for="{{NoticeCollageList}}" wx:for-index="index" wx:for-item="item" wx:key="Id">
+          <swiper-item>
+            <view style="display:flex">
+              <image class="laba" src="../image/声音开.png"></image>
+              <view class="notice-text">箴创学院小程序发布了最新课程《{{item.Title}}》</view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </block>
+    <view style="background-color: #FA8E49FF;height:1px;margin-left:20rpx;margin-right:15rpx;margin-top:15rpx;">
+    </view>
   </view>
+  <view style="background-color:white;height:15rpx"></view>
+  <view>
+    <listitem :title="area1" :size="num1"  :pageData.sync="DaKaCollageList"></listitem>
+  </view>
+  <view>
+    <cardbanner title="精品课程" :size="num1"  :pageData.sync="ExcellentCollageList"></cardbanner>
+  </view>
+  <view>
+    <cardself title="音频课程" :size="num1"  :pageData.sync="YinPinCollageList"></cardself>
+  </view>
+  <view>
+    <listitem1 :title="area2" :size="num2" :pageData.sync="DaKaCollageList"></listitem1>
+  </view>
+
+</view>
 </template>
 <script>
 import wepy from 'wepy'
 import cardself from "../components/card"
 import cardservice from "../components/cardservice"
+import cardbanner from "../components/cardbanner"
+
+import listitem from "../components/listnew"
 import toast from "./../utils/toast"
 import config from "./../utils/config"
 import helper from "./../utils/helper"
 import api from "./../utils/api"
 import request from "./../utils/request"
 import db from "./../utils/db"
-
+import NoticeBar from 'wepy-notice-bar'
 
 export default class Index extends wepy.page {
   config = {
@@ -47,25 +77,34 @@ export default class Index extends wepy.page {
       "van-button": "../components/vant/button/index",
       "van-card": "../components/vant/card/index",
       "van-rate": "../components/vant/rate/index",
-      "van-toast": "../components/vant/toast/index"
+      "van-toast": "../components/vant/toast/index",
+      "i-notice-bar": "../components/vant/notice-bar/index",
+      "i-icon":"../components/vant/icon/index"
     }
   }
 
   components = {
     cardself: cardself,
     cardself1: cardself,
-    cardservice: cardservice
+    cardservice: cardservice,
+    NoticeBar:NoticeBar,
+    listitem:listitem,
+    listitem1:listitem,
+    cardbanner:cardbanner
   }
 
   data = {
     bannerList: [],
     groups: [],
-    area2: "专栏",
-    area1: "精品推荐",
+    area2: "敬请期待",
+    area1: "年度大课",
     num1: 4,
     num2: 6,
     ExcellentCollageList:[{},{},{},{}],
     DaKaCollageList:[{},{},{},{}],
+    YinPinCollageList:[],
+    NoticeCollageList:[],
+    text:"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
   }
 
   computed = {
@@ -129,6 +168,9 @@ export default class Index extends wepy.page {
         console.log(that.bannerList)
         that.ExcellentCollageList=result.ExcellentCollageList;
         that.DaKaCollageList=result.DaKaCollageList;
+        that.NoticeCollageList=result.NoticeCollageList;
+        that.VadioCollageList=result.VadioCollageList;
+        that.YinPinCollageList=result.YinPinCollageList;
         that.$apply()
       }
     })
@@ -210,5 +252,31 @@ page {
   padding-bottom: 5rpx;
   margin-bottom: 8rpx;
 }
+.notice{
+  height:50rpx;
+}
+.laba{
+  height:50rpx;
+  width:50rpx;
+  margin-left:10rpx
+}
+.notice-bar{
 
+  padding-left:11px;
+  padding-right:20rpx;
+  padding-top:10rpx;
+  padding-bottom:10rpx;
+
+  background-color:white;
+
+
+}
+.notice-text{
+ margin-left:20rpx;
+ color:#646464FF;
+ font-size:80%;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
 </style>

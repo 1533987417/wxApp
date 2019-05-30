@@ -1,0 +1,223 @@
+<template>
+ <view style="">
+  <view style="display:flex;background-color:white;margin-top:10rpx">
+    <view class="line">|</view>
+    <view class="card-title">{{title}}</view>
+  </view>
+  <view style="background-color:#DFDFDEFF;height:1rpx"></view>
+  <view class="contain" wx:for="{{pageData}}" wx:key="id">
+    <van-card　@tap="toUrl" data-id="{{item.Id}}" thumb-class="picture" custom-class="custom" thumb="{{ item.SmallImageUrl }}" >
+      <view slot="title" style="margin-left:20rpx;margin-top:25rpx">
+        <view class="title">
+          {{item.Title}}
+        </view>
+        <view class="subTitle">讲师：{{item.TeacherName}}</view>
+        <view style="background-color:#DFDFDEFF;height:1rpx"></view>
+        <view style="display:flex;margin-top:10rpx">
+          <view wx:if="{{!isIos}}" class="price">￥：{{item.SalePrice/100}}</view>
+          <view data-id="{{item.Id}}" style="display:flex" class="watch-btn" @top="toUrl">
+            <view style="margin-top:10rpx" >立即观看</view>
+            <image class="watch-icon" src="../image/运行.png"></image>
+          </view>
+
+        </view>
+        <!-- <view class="desc">
+          查看回放
+        </view> -->
+      </view>
+      
+    </van-card>
+  </view>
+</view>
+</template>
+<script>
+import wepy from 'wepy'
+import request from './../utils/request'
+import api from './../utils/api'
+
+
+export default class cardself extends wepy.component {
+
+  props = {
+    title: String,
+    size: {
+      type: [Number, String],
+      default: 6
+    },
+    pageData: [{},{},{},{}],
+    showData:[{}],
+
+  }
+  onLoad() {
+    this.isIos=this.$parent.$parent.globalData.deviceInfo.model.indexOf("iPhone")==-1?false:true;
+    this.$apply()
+    console.log("1111",this.isIos)
+  }
+  /*onLoad() {
+    console.log(321321);
+    console.log(this.title);
+    if (this.title == "精品专栏") {
+      this.GetExcellentCollage()
+
+    } else {
+      this.getCollageList()
+
+    }
+
+  }
+  GetExcellentCollage() {
+    request.httpPostJY(api.service.getExcellentCollage, {}, (isOk, data) => {
+      console.log(data);
+      this.pageData = data.Data;
+      this.$apply()
+    })
+  }
+
+  getCollageList() {
+    request.httpPostJY(api.service.getCollageList, { CollageName: this.title, PageSiz: 5, PageIndex: 1 }, (isOk, data) => {
+      console.log(data)
+      this.pageData = data.Data;
+      this.$apply()
+    })
+  }
+  */
+  computed = {
+    showData() {
+      console.log("xxxxxx", this.size);
+      return this.pageData.slice(0, this.size)
+    },
+    isIos(){
+      console.log("computer",this.isIos)
+      return this.isIos
+    }
+  }
+
+  data = {
+    message: "免费专区",
+    pageData: [{},{},{},{}],
+    isIos:Boolean
+  }
+
+  methods = {
+    toUrl(e) {
+      wepy.navigateTo({
+        url: 'detail?id=' + e.currentTarget.dataset.id
+      })
+    }
+  }
+}
+
+</script>
+<style lang="less">
+.contain{
+ background-color:#ffffff;
+ margin-bottom:10rpx
+}
+.picture {
+
+  border-radius: 20rpx;
+
+}
+.price{
+  font-weight: bold;
+  color: #FF4500;
+  font-size: 110%;
+  margin-top:10rpx;
+
+}
+
+.out {
+  border-radius: 15rpx;
+  background-image: 'https://img.cifnews.com/dev/20180521/91f7d1f55c5e4b6a8642dea53c57546f.jpg';
+}
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 120%;
+}
+.subTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 98%;
+  color: #707070;
+  margin-bottom:10rpx
+}
+
+.desc {
+  font-size: 98%;
+  background-color: #eeeeee;
+  border-radius: 4rpx;
+  display: inline-block;
+}
+
+.tag {
+  margin-right: 10rpx;
+}
+.weui-loadmore__tips_in-line{
+  position: relative;
+  top:-.9em;
+  padding:0 .55em;
+  background-color: #FFFFFF;
+  color:#999999;
+}
+.weui-loadmore__tips{
+  display: inline-block;
+  vertical-align: middle;
+}
+.weui-loadmore{
+  width: 65%;
+  margin:1.5em auto;
+  line-height: 1.6em;
+  font-size:14px;
+  text-align: center;
+}
+.weui-loadmore_line{
+  border-top:1px solid #E5E5E5;
+  margin-top:2.4em;
+}
+.weui-loadmore{
+  width: 65%;
+  margin:1.5em auto;
+  line-height: 1.6em;
+  font-size:14px;
+  text-align: center;
+}
+.weui-loadmore__tips{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  font-size: 101%;
+  color:FF8738FF;
+  margin:10rpx 2rpx 10rpx 0rpx;
+  background-color:white
+}
+.line{
+ color:#FF8738FF;
+ margin-left:20rpx;
+ margin-right:20rpx;
+ margin-top:6rpx;
+
+}
+.watch-btn{
+ background-color:#FF8738FF;
+ padding:5rpx 15rpx;
+ border-radius:10rpx;
+ color:white;
+ right:10rpx;
+ position:absolute;
+
+}
+.watch-icon{
+  width:40rpx;
+  height:40rpx;
+  margin-left:4px;
+  margin-top:10rpx;
+
+}
+</style>
