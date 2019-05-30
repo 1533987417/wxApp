@@ -41,7 +41,7 @@
   </view>
   <view style="background-color:white;height:15rpx"></view>
   <view>
-    <listitem :title="area1" :size="num1"  :pageData.sync="DaKaCollageList"></listitem>
+    <listitem :title="area1" :size="num1" :pageData.sync="DaKaCollageList"></listitem>
   </view>
   <view>
     <cardbanner title="精品课程" :size="num1"  :pageData.sync="ExcellentCollageList"></cardbanner>
@@ -50,7 +50,7 @@
     <cardself title="音频课程" :size="num1"  :pageData.sync="YinPinCollageList"></cardself>
   </view>
   <view>
-    <listitem1 :title="area2" :size="num2" :pageData.sync="DaKaCollageList"></listitem1>
+    <listitem1 :title="area2" :size="num2" :pageData.sync="VadioCollageList"></listitem1>
   </view>
 
 </view>
@@ -102,8 +102,9 @@ export default class Index extends wepy.page {
     num2: 6,
     ExcellentCollageList:[{},{},{},{}],
     DaKaCollageList:[{},{},{},{}],
-    YinPinCollageList:[],
-    NoticeCollageList:[],
+    VadioCollageList:[{},{},{},{}],
+    YinPinCollageList:[{},{},{},{}],
+    NoticeCollageList:[{},{},{},{}],
     text:"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
   }
 
@@ -171,6 +172,7 @@ export default class Index extends wepy.page {
         that.NoticeCollageList=result.NoticeCollageList;
         that.VadioCollageList=result.VadioCollageList;
         that.YinPinCollageList=result.YinPinCollageList;
+        that.VadioCollageList=result.VadioCollageList;
         that.$apply()
       }
     })

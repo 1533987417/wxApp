@@ -5,7 +5,7 @@
     <view class="card-title">{{title}}</view>
   </view>
   <view style="background-color:#DFDFDEFF;height:1rpx"></view>
-  <view class="contain" wx:for="{{pageData}}" wx:key="id">
+  <view class="contain" wx:for="{{showData}}" wx:key="id">
     <van-card　@tap="toUrl" data-id="{{item.Id}}" thumb-class="picture" custom-class="custom" thumb="{{ item.SmallImageUrl }}" >
       <view slot="title" style="margin-left:20rpx;margin-top:25rpx">
         <view class="title">
@@ -85,10 +85,6 @@ export default class cardself extends wepy.component {
     showData() {
       console.log("xxxxxx", this.size);
       return this.pageData.slice(0, this.size)
-    },
-    isIos(){
-      console.log("computer",this.isIos)
-      return this.isIos
     }
   }
 
@@ -211,6 +207,7 @@ export default class cardself extends wepy.component {
  color:white;
  right:10rpx;
  position:absolute;
+ padding-bottom:10rpx;
 
 }
 .watch-icon{

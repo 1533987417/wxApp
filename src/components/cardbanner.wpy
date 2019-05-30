@@ -7,7 +7,7 @@
     <view style="background-color:#DFDFDEFF;height:1rpx"></view>
     <view class="card-contain">
       <swiper class="swiper-card" indicator-dots="{{true}}" autoplay>
-        <block class="swiper-container" wx:for="{{pageData}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+        <block class="swiper-container" wx:for="{{showData}}" wx:for-index="index" wx:for-item="item" wx:key="id">
           <swiper-item class="displex-center"  >
             <view class="swiper-card-item" data-id="{{item.Id}}" @tap="toUrl">
               <!-- width="355" height="150"  -->
@@ -75,10 +75,6 @@ export default class cardself extends wepy.component {
     showData() {
       console.log("xxxxxx", this.size);
       return this.pageData.slice(0, this.size)
-    },
-    isIos(){
-      console.log("computer",this.isIos)
-      return this.isIos
     }
   }
 

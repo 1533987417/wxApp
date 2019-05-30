@@ -17,6 +17,7 @@
           <view style="background-color:#DFDFDEFF;height:1rpx"></view>
           <view style="display:flex;margin-top:10rpx">
             <view wx:if="{{!isIos}}" class="price">￥：{{item.SalePrice/100}}</view>
+            <view wx:if="{{isIos}}"style="width:90rpx"></view>
             <view data-id="{{item.Id}}" style="display:flex" class="watch-btn2" @tap="toUrl">
               <view style="margin-top:10rpx;font-size:80%" >立即收听</view>
               <image class="watch-icon2" src="../image/运行.png"></image>
@@ -83,10 +84,6 @@ export default class cardself extends wepy.component {
     showData() {
       console.log("xxxxxx", this.size);
       return this.pageData.slice(0, this.size)
-    },
-    isIos(){
-      console.log("computer",this.isIos)
-      return this.isIos
     }
   }
 
@@ -218,7 +215,6 @@ export default class cardself extends wepy.component {
   font-weight: bold;
   color: #FF4500;
   font-size: 88%;
-
 }
 .line{
  color:#FF8738FF;
@@ -232,7 +228,9 @@ export default class cardself extends wepy.component {
  padding:5rpx 15rpx;
  border-radius:10rpx;
  color:white;
- margin-left:40rpx
+ margin-left:40rpx;
+ padding-bottom:10rpx;
+
 
 }
 .watch-icon2{
