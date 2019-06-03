@@ -7,7 +7,7 @@
         </block>
       </scroll-view>
     </view>
-    <view style="margin-top:80rpx">
+    <view style="margin-top:80rpx;background-color:white;">
       <swiper class="swiper-card" indicator-dots="{{true}}" autoplay>
         <block class="swiper-container" wx:for="{{bannerList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
           <swiper-item class="displex-center" >
@@ -29,7 +29,7 @@
         <block wx:for="{{NoticeCollageList}}" wx:for-index="index" wx:for-item="item" wx:key="Id">
           <swiper-item>
             <view style="display:flex">
-              <image class="laba" src="../image/声音开.png"></image>
+              <image class="laba" src="../image/sound.png"></image>
               <view class="notice-text">箴创学院小程序发布了最新课程《{{item.Title}}》</view>
             </view>
           </swiper-item>
@@ -60,7 +60,6 @@ import wepy from 'wepy'
 import cardself from "../components/card"
 import cardservice from "../components/cardservice"
 import cardbanner from "../components/cardbanner"
-
 import listitem from "../components/listnew"
 import toast from "./../utils/toast"
 import config from "./../utils/config"
@@ -172,6 +171,7 @@ export default class Index extends wepy.page {
         that.NoticeCollageList=result.NoticeCollageList;
         that.VadioCollageList=result.VadioCollageList;
         that.YinPinCollageList=result.YinPinCollageList;
+        
         that.VadioCollageList=result.VadioCollageList;
         that.$apply()
       }
@@ -249,7 +249,7 @@ page {
   font-size: 90%;
   text-align: center;
   line-height: 60rpx;
-  font-weight: bold;
+  //font-weight: bold;
   padding-top: 5rpx;
   padding-bottom: 5rpx;
   margin-bottom: 8rpx;
@@ -280,5 +280,7 @@ page {
  white-space: nowrap;
  overflow: hidden;
  text-overflow: ellipsis;
+ margin-top:8rpx;
+
 }
 </style>

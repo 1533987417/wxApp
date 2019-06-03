@@ -5,7 +5,7 @@
       <view slot="title">
         <image class="order-img" src="{{orderInfo.SmallImageUrl}}"></image>
         <view class="order-info-title"> {{orderInfo.CollageTitle}}</view>
-        <view class="order-price" @tap="seerate"><span wx:if="{{orderInfo.CollagePrice!=orderInfo.PayAmount}}" style="text-decoration:line-through;color:#707070">￥{{orderInfo.CollagePrice}}</span>￥{{orderInfo.PayAmount/100}}</view>
+        <view class="order-price" @tap="seerate"><span wx:if="{{orderInfo.CollagePrice!=orderInfo.PayAmount}}" style="text-decoration:line-through;color:#707070">￥{{orderInfo.CollagePrice/100}}</span>￥{{orderInfo.PayAmount/100}}</view>
       </view>
     </van-cell>
     <view style="margin-top:20rpx;">

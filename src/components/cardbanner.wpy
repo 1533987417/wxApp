@@ -115,6 +115,7 @@ export default class cardself extends wepy.component {
   font-weight: bold;
   font-size: 101%;
   margin:10rpx 2rpx 10rpx 0rpx;
+  color:#FF8738FF;
 }
 
 .card-contain>view {

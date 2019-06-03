@@ -17,9 +17,9 @@
           <view style="background-color:#DFDFDEFF;height:1rpx"></view>
           <view style="display:flex;margin-top:10rpx">
             <view wx:if="{{!isIos}}" class="price">￥：{{item.SalePrice/100}}</view>
-            <view wx:if="{{isIos}}"style="width:90rpx"></view>
+            <view wx:if="{{isIos}}"style="width:100rpx"></view>
             <view data-id="{{item.Id}}" style="display:flex" class="watch-btn2" @tap="toUrl">
-              <view style="margin-top:10rpx;font-size:80%" >立即收听</view>
+              <view style="margin-top:10rpx;font-size:25rpx" >立即收听</view>
               <image class="watch-icon2" src="../image/运行.png"></image>
             </view>
 
@@ -125,14 +125,15 @@ export default class cardself extends wepy.component {
   font-weight: bold;
   font-size: 101%;
   margin:10rpx 2rpx 10rpx 0rpx;
+  color:#FF8738FF;
 }
 
 .card-contain>view {
-  width: 49%;
+  width: 45%;
   height: 380rpx;
   margin-top:8rpx;
-  margin-left:20rpx;
-  margin-right:20rpx
+  margin-left:15rpx;
+  margin-right:15rpx
 }
 
 .card-img {
@@ -214,7 +215,7 @@ export default class cardself extends wepy.component {
 .price{
   font-weight: bold;
   color: #FF4500;
-  font-size: 88%;
+  font-size:30rpx
 }
 .line{
  color:#FF8738FF;
@@ -230,7 +231,7 @@ export default class cardself extends wepy.component {
  color:white;
  margin-left:40rpx;
  padding-bottom:10rpx;
-
+ Z-index:99;
 
 }
 .watch-icon2{
